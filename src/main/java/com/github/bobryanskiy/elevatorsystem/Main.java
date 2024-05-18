@@ -1,5 +1,6 @@
 package com.github.bobryanskiy.elevatorsystem;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -24,8 +25,6 @@ public class Main extends javafx.application.Application {
         launch();
     }
 
-    public static AnchorPane aP;
-
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("elevators-scene.fxml"));
@@ -33,6 +32,6 @@ public class Main extends javafx.application.Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        aP = (AnchorPane) stage.getScene().getRoot();
+        Platform.runLater(() -> ElevatorsThread.updateElevators(((ElevatorsScene) (fxmlLoader.getController())).getPane()));
     }
 }
